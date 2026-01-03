@@ -1,0 +1,176 @@
+[gd_scene load_steps=15 format=3 uid="uid://c27j6hfrt2gho"]
+
+[ext_resource type="Script" uid="uid://b8qkfrie5vxnr" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://d2cnsiijpb6xp" path="res://cam.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://cn532e11igxx4" path="res://split.png" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://cy0ru6pstomml" path="res://waveControl.gd" id="1_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://c1ci2twsejtgs" path="res://icon.svg" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cxtw00pdb30cv" path="res://onshoot.png" id="4_4c57u"]
+[ext_resource type="Script" uid="uid://bbyjlrx34peiu" path="res://cards.gd" id="4_272bh"]
+[ext_resource type="Script" uid="uid://csslayiye0o2v" path="res://triggerCard.gd" id="5_efxa6"]
+[ext_resource type="Texture2D" uid="uid://3uger4tsjvk4" path="res://rotate.png" id="6_5vw27"]
+[ext_resource type="Texture2D" uid="uid://dw3dvm2gep8ht" path="res://onenemy.png" id="6_efxa6"]
+[ext_resource type="Texture2D" uid="uid://bictolv6pqtrb" path="res://explode.png" id="7_5vw27"]
+[ext_resource type="Texture2D" uid="uid://cqsoim5rq7fr7" path="res://pierce.png" id="11_dg77c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
+radius = 39.623226
+
+[sub_resource type="LabelSettings" id="LabelSettings_w48qg"]
+font_size = 76
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ycdy4")
+
+[node name="Cam" type="Camera2D" parent="."]
+position = Vector2(575, 323)
+scale = Vector2(0.61562586, 0.61562586)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+script = ExtResource("1_1bvp3")
+
+[node name="Player" type="StaticBody2D" parent="." groups=["Player"]]
+position = Vector2(575, 323)
+script = ExtResource("1_0xm2m")
+
+[node name="Player" type="Sprite2D" parent="Player"]
+scale = Vector2(0.61562586, 0.61562586)
+texture = ExtResource("2_h2yge")
+
+[node name="gun" type="Node2D" parent="Player"]
+scale = Vector2(0.61562586, 0.61562586)
+
+[node name="ColorRect" type="ColorRect" parent="Player/gun"]
+offset_left = 1.0
+offset_top = -6.0
+offset_right = 92.5887
+offset_bottom = 5.0
+pivot_offset = Vector2(-1, 6)
+color = Color(0, 0.57254905, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Player"]
+top_level = true
+position = Vector2(206.29413, -25.98981)
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+polygon = PackedVector2Array(-6.4974365, -42.23346, -9.746216, 0, -38.98474, 9.746185, -8.121826, 19.49237, 0, 53.604004, 9.746216, 17.867981, 42.2334, 8.121796, 8.121826, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_dg77c")
+
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Health" type="ProgressBar" parent="UI"]
+offset_left = 1.0
+offset_top = 576.0
+offset_right = 634.0
+offset_bottom = 621.0
+show_percentage = false
+
+[node name="waveProgress" type="ProgressBar" parent="UI"]
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 1153.0
+offset_bottom = 104.0
+
+[node name="wave" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_right = 0.99700004
+anchor_bottom = 0.11100001
+offset_left = 7.0
+offset_right = 7.4559326
+offset_bottom = 33.07199
+size_flags_vertical = 0
+text = "WAVE 1"
+label_settings = SubResource("LabelSettings_w48qg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cards" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/Cards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0020001
+anchor_bottom = 1.003
+offset_right = -0.30407715
+offset_bottom = -1.9440308
+
+[node name="OnShoot" type="TextureRect" parent="UI/Cards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.054
+anchor_bottom = 0.08800001
+offset_left = 62.0
+offset_top = 57.0
+offset_right = 234.79199
+offset_bottom = 311.97598
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_4c57u")
+script = ExtResource("5_efxa6")
+
+[node name="OnEnemy" type="TextureRect" parent="UI/Cards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.054
+anchor_bottom = 0.08800001
+offset_left = 265.0
+offset_top = 57.0
+offset_right = 437.792
+offset_bottom = 311.97598
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_efxa6")
+script = ExtResource("5_efxa6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Cards"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.832
+anchor_right = 1.0
+anchor_bottom = 0.99500006
+offset_left = 23.53601
+offset_right = 71.42871
+offset_bottom = 279.52557
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+
+[node name="Cards" type="VBoxContainer" parent="UI/Cards/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("4_272bh")
+
+[node name="1" type="TextureButton" parent="UI/Cards/ScrollContainer/Cards"]
+layout_mode = 2
+texture_normal = ExtResource("1_h2yge")
+
+[node name="2" type="TextureButton" parent="UI/Cards/ScrollContainer/Cards"]
+layout_mode = 2
+texture_normal = ExtResource("6_5vw27")
+
+[node name="3" type="TextureButton" parent="UI/Cards/ScrollContainer/Cards"]
+layout_mode = 2
+texture_normal = ExtResource("7_5vw27")
+
+[node name="4" type="TextureButton" parent="UI/Cards/ScrollContainer/Cards"]
+layout_mode = 2
+texture_normal = ExtResource("11_dg77c")
+
+[node name="Line2D" type="Line2D" parent="UI/Cards"]
+position = Vector2(611, 94)
+points = PackedVector2Array(0, 0, 0, 100)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[connection signal="button_down" from="UI/Cards/ScrollContainer/Cards/1" to="UI/Cards/ScrollContainer/Cards" method="_on__button_down" flags=18]
+[connection signal="button_down" from="UI/Cards/ScrollContainer/Cards/2" to="UI/Cards/ScrollContainer/Cards" method="_on__button_down" flags=18]
+[connection signal="button_down" from="UI/Cards/ScrollContainer/Cards/3" to="UI/Cards/ScrollContainer/Cards" method="_on__button_down" flags=18]
+[connection signal="button_down" from="UI/Cards/ScrollContainer/Cards/4" to="UI/Cards/ScrollContainer/Cards" method="_on__button_down" flags=18]
